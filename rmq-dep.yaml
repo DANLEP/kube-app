@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpromq01
+spec:
+  selector:
+    matchLabels:
+      app: vpromq01
+  template:
+    metadata:
+      labels:
+        app: vpromq01
+    spec:
+      containers:
+      - name: vpromq01
+        image: rabbitmq
+        resources:
+          requests:
+            memory: "1Gi"  # Adjust based on your workload and requirements
+            cpu: "0.5"     # Adjust based on expected CPU usage
+          limits:
+            memory: "2Gi"  # Adjust based on available memory and performance needs
+            cpu: "1"       # Adjust based on available CPU and performance needs
+        ports:
+        - name: vpromq01-port
+          containerPort: 15672
+        env:
+          - name: RABBITMQ_DEFAULT_PASS
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: rmq-pass
+          - name: RABBITMQ_DEFAULT_USER
+            value: "guest"

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpromc
+spec:
+  selector:
+    matchLabels:
+      app: vpromc
+  template:
+    metadata:
+      labels:
+        app: vpromc
+    spec:
+      containers:
+      - name: vpromc
+        image: memcached
+        resources:
+          requests:
+            memory: "512Mi"  # Adjust based on your cache size and workload
+            cpu: "0.1"       # Adjust based on expected CPU usage
+          limits:
+            memory: "1Gi"    # Adjust based on available memory and performance needs
+            cpu: "0.5"       # Adjust based on available CPU and performance needs
+        ports:
+        - name: vpromc-port
+          containerPort: 11211
