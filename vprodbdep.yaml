@@ -19,7 +19,7 @@ spec:
         image: vprofile/vprofiledb:V1
         volumeMounts:
           - mountPath: /var/lib/mysql
-            name: vpro-db-data
+            name: vprodb-data
         resources:
           requests:
             memory: "1Gi"  # Minimum memory required for the pod
@@ -48,5 +48,5 @@ spec:
           image: busybox:latest
           args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
           volumeMounts:
-            - name: vpro-db-data
+            - name: vprodb-data
               mountPath: /var/lib/mysql
